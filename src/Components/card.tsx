@@ -4,21 +4,26 @@ export interface CardProps {
   imageUrl: string;
   author: string;
   tag: string[];
+  id: string;
 }
-
+import { Link } from "@tanstack/react-router";
 export default function Card({ book }: { book: CardProps }) {
   return (
-    <div className="basis-[calc(20%-0.5rem)] flex flex-col border rounded h-[300px]">
+    <Link
+      className=" basis-[calc(20%-0.5rem)] flex flex-col border rounded h-[300px] p-1 hover:shadow-lg transition-shadow"
+      to="/$bookId"
+      params={{ bookId: book.id }}
+    >
       <img
         src={book.imageUrl}
         alt={book.title}
         className="w-full h-[150px] object-cover rounded-t"
       />
-      <div className="p-2 flex flex-col justify-between h-full">
+      <div className=" flex flex-col justify-between h-full">
         <h3 className="text-lg font-bold">{book.title}</h3>
         <p className="text-sm text-gray-600">{book.description}</p>
         <p className="text-sm text-gray-500">by {book.author}</p>
-        <div className="flex flex-wrap gap-1 mt-2">
+        <div className="flex flex-wrap gap-1">
           {book.tag.map((tag) => (
             <span
               key={tag}
@@ -29,6 +34,6 @@ export default function Card({ book }: { book: CardProps }) {
           ))}
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
